@@ -8,10 +8,27 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+const couponRoutes = require('./routes/couponRoutes');
+const chatRoutes = require('./routes/chatRoutes');
+const loyaltyRoutes = require('./routes/loyaltyRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 // API lay danh sach san pham
 app.get('/api/products', (req, res) => {
   res.json(products);
 });
+
+// API quan ly ma giam gia
+app.use('/api/coupons', couponRoutes);
+
+// API quan ly chat ho tro khach hang
+app.use('/api/chat', chatRoutes);
+
+// API quan ly thanh vien
+app.use('/api/loyalty', loyaltyRoutes);
+
+// API quan ly lich su don hang
+app.use('/api/orders', orderRoutes);
 
 // Trang chu check server
 app.get('/', (req, res) => {

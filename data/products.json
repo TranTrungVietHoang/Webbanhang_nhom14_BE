@@ -1,11 +1,35 @@
 [
   {
     "id": 1,
-    "name": "IPhone 17 Pro Max 2T Chinh Hang VN/A",
+    "name": "IPhone 17 Pro Max 256GB - Chính hãng VN/A",
     "price": 37990000,
     "rating": 5,
     "sold": 856,
-    "image": "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1730036900477-09391e7a5414?auto=format&fit=crop&q=80&w=600",
+    "category": "Điện thoại",
+    "description": "iPhone 17 Pro Max với chip A17 Pro mạnh mẽ, camera 48MP cải tiến, màn hình Super Retina XDR 6.7 inch, pin sử dụng cả ngày. Thiết kế Titan cao cấp, bền bỉ và nhẹ hơn. Hỗ trợ 5G, Dynamic Island, và nhiều tính năng AI thông minh.",
+    "stock": 45,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1730036900477-09391e7a5414?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1726587912121-ea21fcc57ff8?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1727079513748-d03e7b8c8947?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Nguyễn Văn A",
+        "rating": 5,
+        "comment": "Sản phẩm tuyệt vời! Chất lượng camera rất tốt, màn hình sắc nét. Giao hàng nhanh, đóng gói cẩn thận. Rất hài lòng với lần mua hàng này!",
+        "date": "19/01/2025"
+      },
+      {
+        "id": 2,
+        "user": "Nguyễn Văn N",
+        "rating": 5,
+        "comment": "Đã dùng 1 tuần, rất hài lòng. Hiệu năng mượt mà, không giật lag. Shop tư vấn nhiệt tình!",
+        "date": "19/06/2025"
+      }
+    ]
   },
   {
     "id": 2,
@@ -13,22 +37,104 @@
     "price": 35990000,
     "rating": 5,
     "sold": 533,
-    "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=600",
+    "category": "Laptop",
+    "description": "Dell XPS 9340 mới nhất với chip Intel Core Ultra 7, màn hình OLED 3K cực nét, thiết kế mỏng nhẹ sang trọng. Phù hợp cho công việc đồ họa và văn phòng cao cấp.",
+    "stock": 12,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1588872657578-7efd1f1513ed?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
   },
   {
     "id": 3,
-    "name": "Tai nghe Sony WH Chong on chu dong",
+    "name": "Tai nghe Sony WH-1000XM5 Chống ồn chủ động",
     "price": 7990000,
     "rating": 5,
     "sold": 343,
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600",
+    "category": "Âm thanh",
+    "description": "Tai nghe chống ồn hàng đầu thế giới từ Sony. Chất lượng âm thanh Hi-Res, thời lượng pin 30 giờ, thiết kế êm ái cho cả ngày dài.",
+    "stock": 25,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
   },
   {
     "id": 4,
-    "name": "Apple Watch Series 9 GPS 45mm",
+    "name": "Apple Watch Series 9 GPS 45mm - Viền Nhôm",
     "price": 10990000,
     "rating": 5,
     "sold": 121,
-    "image": "https://images.unsplash.com/photo-1546868871-70c122467d16?auto=format&fit=crop&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600",
+    "category": "Đồng hồ",
+    "description": "Apple Watch Series 9 với chip S9 SiP mạnh mẽ, tính năng 'Double Tap' mới, màn hình sáng hơn và các tính năng theo dõi sức khỏe tiên tiến.",
+    "stock": 30,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
+  },
+  {
+    "id": 5,
+    "name": "Camera Sony Alpha A7 IV Body Only",
+    "price": 57990000,
+    "rating": 5,
+    "sold": 856,
+    "image": "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&q=80&w=600",
+    "category": "Camera",
+    "description": "Máy ảnh Full-frame Sony A7 IV với cảm biến 33MP, lấy nét theo mắt thời gian thực, quay video 4K 60p chuyên nghiệp.",
+    "stock": 5,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
+  },
+  {
+    "id": 6,
+    "name": "iPad Pro M2 11 inch Chính Hãng VN/A",
+    "price": 21990000,
+    "rating": 5,
+    "sold": 856,
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=600",
+    "category": "Tablet",
+    "description": "iPad Pro với chip M2 cực mạnh, màn hình Liquid Retina tuyệt đẹp, hỗ trợ Apple Pencil Hover và kết nối ProRes video.",
+    "stock": 18,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
+  },
+  {
+    "id": 7,
+    "name": "Bàn phím cơ Gaming Logitech G Pro X Wireless",
+    "price": 3990000,
+    "rating": 5,
+    "sold": 856,
+    "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=600",
+    "category": "Phụ kiện",
+    "description": "Bàn phím cơ không dây chuyên nghiệp cho game thủ, switch có thể thay thế, công nghệ Lightspeed siêu tốc.",
+    "stock": 50,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
+  },
+  {
+    "id": 8,
+    "name": "Chuột Gaming Razer DeathAdder V3 Pro",
+    "price": 2990000,
+    "rating": 5,
+    "sold": 856,
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&q=80&w=600",
+    "category": "Phụ kiện",
+    "description": "Chuột gaming siêu nhẹ 63g, cảm biến quang học Focus Pro 30K, switch quang học Gen-3 bền bỉ.",
+    "stock": 40,
+    "detailedImages": [
+      "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&q=80&w=600"
+    ],
+    "reviews": []
   }
 ]

@@ -1,0 +1,30 @@
+{
+  "session_1775197715291_ru8057332": {
+    "sessionId": "session_1775197715291_ru8057332",
+    "items": [
+      {
+        "id": 1,
+        "name": "IPhone 17 Pro Max 2T Chinh Hang VN/A",
+        "price": 37990000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&q=80&w=400"
+      },
+      {
+        "id": 2,
+        "name": "Laptop Dell XPS 9340 Intel Core Ultra 7",
+        "price": 35990000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=400"
+      },
+      {
+        "id": 3,
+        "name": "Tai nghe Sony WH Chong on chu dong",
+        "price": 7990000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400"
+      }
+    ],
+    "createdAt": "2026-04-03T08:32:26.448Z",
+    "updatedAt": "2026-04-03T08:32:38.867Z"
+  }
+}

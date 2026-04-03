@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1775190812481",
+    "text": "Xin ch",
+    "sender": "user",
+    "timestamp": "2026-04-03T04:33:32.481Z"
+  },
+  {
+    "id": "1775190813523",
+    "text": "Cảm ơn bạn đã liên hệ! Tư vấn viên sẽ phản hồi bạn trong giây lát.",
+    "sender": "bot",
+    "timestamp": "2026-04-03T04:33:33.524Z"
+  },
+  {
+    "id": "1775190826449",
+    "text": "Hello, testing!",
+    "sender": "user",
+    "timestamp": "2026-04-03T04:33:46.449Z"
+  },
+  {
+    "id": "1775190827468",
+    "text": "Cảm ơn bạn đã liên hệ! Tư vấn viên sẽ phản hồi bạn trong giây lát.",
+    "sender": "bot",
+    "timestamp": "2026-04-03T04:33:47.468Z"
+  },
+  {
+    "id": "1775190870950",
+    "text": "alo",
+    "sender": "user",
+    "timestamp": "2026-04-03T04:34:30.950Z"
+  },
+  {
+    "id": "1775190871968",
+    "text": "Cảm ơn bạn đã liên hệ! Tư vấn viên sẽ phản hồi bạn trong giây lát.",
+    "sender": "bot",
+    "timestamp": "2026-04-03T04:34:31.968Z"
+  }
+]

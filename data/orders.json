@@ -1,34 +1,70 @@
 [
   {
-    "id": "DH01",
+    "id": "DH001",
     "customer": "Nguyễn Văn A",
-    "date": "24/01/2026",
-    "discount": "0%",
-    "total": 10000000,
-    "status": "Đã hoàn thành"
+    "customerEmail": "nguyenvana@example.com",
+    "customerPhone": "09988675322",
+    "date": "2026-01-25",
+    "itemsCount": 2,
+    "total": 57990000,
+    "status": "Hoàn thành",
+    "delivery": {
+      "address": "123 Đường ABC, Phường XYZ, Quận G, TP.HCM",
+      "method": "Thanh toán khi nhận hàng (COD)"
+    },
+    "products": [
+      {
+        "id": "p1",
+        "name": "Iphone 17 promax 1T ( màu cam)",
+        "image": "/images/iphone17.png",
+        "qty": 2,
+        "price": 28990000,
+        "total": 57980000
+      },
+      {
+        "id": "p2",
+        "name": "Laptop DeLL XPL 13",
+        "image": "/images/laptop.png",
+        "qty": 1,
+        "price": 27690000,
+        "total": 27690000
+      }
+    ],
+    "subTotal": 85670000,
+    "shippingFee": 30000,
+    "finalTotal": 85700000,
+    "note": "Giao hàng trong giờ hành chính, gọi điện trước khi giao."
   },
   {
-    "id": "DH02",
-    "customer": "Nguyễn Văn B",
-    "date": "25/01/2026",
-    "discount": "0%",
-    "total": 15000000,
-    "status": "Đang chờ thanh toán"
+    "id": "DH002",
+    "customer": "Trần Thị B",
+    "date": "2026-01-23",
+    "itemsCount": 1,
+    "total": 37990000,
+    "status": "Đang giao"
   },
   {
-    "id": "DH03",
-    "customer": "Trần Thị C",
-    "date": "26/01/2026",
-    "discount": "5%",
-    "total": 8500000,
-    "status": "Đang xử lý"
-  },
-  {
-    "id": "DH04",
-    "customer": "Lê Văn D",
-    "date": "27/01/2026",
-    "discount": "0%",
-    "total": 12000000,
+    "id": "DH003",
+    "customer": "Lê Văn C",
+    "date": "2026-01-20",
+    "itemsCount": 3,
+    "total": 95980000,
     "status": "Đã hủy"
+  },
+  {
+    "id": "DH004",
+    "customer": "Phạm Thị D",
+    "date": "2026-01-20",
+    "itemsCount": 1,
+    "total": 21990000,
+    "status": "Chờ xác nhận"
+  },
+  {
+    "id": "DH005",
+    "customer": "Hoàng Văn E",
+    "date": "2026-01-20",
+    "itemsCount": 2,
+    "total": 45690000,
+    "status": "Đang xử lý"
   }
 ]

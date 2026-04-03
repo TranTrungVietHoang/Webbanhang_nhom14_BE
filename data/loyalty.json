@@ -1,0 +1,86 @@
+{
+  "profile": {
+    "currentPoints": 2900,
+    "tierName": "Gold",
+    "nextTierPoints": 5000,
+    "nextTierName": "Platinum",
+    "requiredPoints": 2100,
+    "stats": {
+      "monthPoints": 1000,
+      "rewardsRedeemed": 5,
+      "missionsCompleted": 2,
+      "missionsTotal": 4,
+      "streakDays": 7
+    }
+  },
+  "tiers": [
+    {
+      "id": 1,
+      "name": "Bronze",
+      "pointRange": "0 - 499 điểm",
+      "benefits": [
+        "Tích 1 điểm/10.000đ"
+      ],
+      "isActive": false
+    },
+    {
+      "id": 2,
+      "name": "Silver",
+      "pointRange": "500 - 1.999 điểm",
+      "benefits": [
+        "Tích 1.5 điểm/10.000đ",
+        "Tích 1.5 điểm/10.000đ"
+      ],
+      "isActive": false
+    },
+    {
+      "id": 3,
+      "name": "Gold",
+      "pointRange": "2.000 - 4.999 điểm",
+      "benefits": [
+        "Tích 2 điểm/10.000đ",
+        "Miễn phí ship",
+        "Ưu tiên hỗ trợ"
+      ],
+      "isActive": true
+    },
+    {
+      "id": 4,
+      "name": "Platinum",
+      "pointRange": "5.000 - ∞ điểm",
+      "benefits": [
+        "Tích 3 điểm/10.000đ",
+        "Miễn phí ship",
+        "Quà tặng sinh nhật",
+        "Hỗ trợ VIP"
+      ],
+      "isActive": false
+    }
+  ],
+  "rules": [
+    {
+      "id": 1,
+      "icon": "shopping-bag",
+      "title": "Mua sắm",
+      "description": "Nhận điểm khi mua hàng (tùy hạng thành viên)"
+    },
+    {
+      "id": 2,
+      "icon": "calendar-check",
+      "title": "Check-in hàng ngày",
+      "description": "Nhận điểm khi mua hàng (tùy hạng thành viên)"
+    },
+    {
+      "id": 3,
+      "icon": "star",
+      "title": "Viết đánh giá",
+      "description": "+50 điểm cho mỗi đánh giá chất lượng"
+    },
+    {
+      "id": 4,
+      "icon": "user-plus",
+      "title": "Giới thiệu bạn bè",
+      "description": "+200 điểm khi bạn bè đăng ký và mua hàng"
+    }
+  ]
+}

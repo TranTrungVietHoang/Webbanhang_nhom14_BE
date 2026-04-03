@@ -1,184 +1,236 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
-
-// Helper function to read JSON files
-const readJsonFile = (filename) => {
-  const filePath = path.join(__dirname, 'data', filename);
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error(`Error reading ${filename}:`, err);
-    return null;
-  }
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000', 'http://localhost:5174'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-session-id'],
 };
 
-// API lấy thống kê dashboard
-app.get('/api/dashboard/stats', (req, res) => {
-  const data = readJsonFile('dashboard.json');
-  if (data) {
+app.use(cors(corsOptions));
+app.use(express.json());
+
+const dataPath = (file) => path.join(__dirname, 'data', file);
+
+// Helper functions (Async)
+async function readData(file) {
+  try {
+    const data = await fs.readFile(dataPath(file), 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  }
+}
+
+async function writeData(file, data) {
+  await fs.writeFile(dataPath(file), JSON.stringify(data, null, 2), 'utf8');
+}
+
+// --- DASHBOARD API ---
+app.get('/api/dashboard/stats', async (req, res) => {
+  try {
+    const data = await readData('dashboard.json');
     res.json(data.stats);
-  } else {
+  } catch (err) {
     res.status(500).json({ error: 'Could not read stats data' });
   }
 });
 
-// API lấy dữ liệu biểu đồ doanh thu
-app.get('/api/dashboard/chart', (req, res) => {
-  const data = readJsonFile('dashboard.json');
-  if (data) {
+app.get('/api/dashboard/chart', async (req, res) => {
+  try {
+    const data = await readData('dashboard.json');
     res.json(data.revenueChart);
-  } else {
+  } catch (err) {
     res.status(500).json({ error: 'Could not read chart data' });
   }
 });
 
-// API lấy danh sách đơn hàng gần đây
-app.get('/api/dashboard/recent-orders', (req, res) => {
-  const orders = readJsonFile('orders.json');
-  if (orders) {
+app.get('/api/dashboard/recent-orders', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
     res.json(orders);
-  } else {
+  } catch (err) {
     res.status(500).json({ error: 'Could not read orders data' });
   }
 });
 
-// Helper function to write JSON files
-const writeJsonFile = (filename, data) => {
-  const filePath = path.join(__dirname, 'data', filename);
+// --- CUSTOMERS API ---
+app.get('/api/customers', async (req, res) => {
   try {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-    return true;
+    const customers = await readData('customers.json');
+    res.json(customers || []);
   } catch (err) {
-    console.error(`Error writing ${filename}:`, err);
-    return false;
-  }
-};
-
-// API lấy danh sách sản phẩm (đã có từ trước)
-app.get('/api/products', (req, res) => {
-  const products = readJsonFile('products.json');
-  res.json(products || []);
-});
-
-// API thêm sản phẩm mới
-app.get('/api/products/:id', (req, res) => {
-  const products = readJsonFile('products.json');
-  const product = products?.find(p => p.id === req.params.id);
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).json({ error: 'Product not found' });
+    res.status(500).json({ error: 'Failed to read customers' });
   }
 });
 
-app.post('/api/products', (req, res) => {
-  const products = readJsonFile('products.json') || [];
-  const newProduct = req.body;
-  
-  // Basic validation
-  if (!newProduct.id || !newProduct.name) {
-    return res.status(400).json({ error: 'ID and Name are required' });
-  }
-
-  products.push(newProduct);
-  if (writeJsonFile('products.json', products)) {
-    res.status(201).json(newProduct);
-  } else {
-    res.status(500).json({ error: 'Failed to write data' });
-  }
-});
-
-// API cập nhật sản phẩm
-app.put('/api/products/:id', (req, res) => {
-  let products = readJsonFile('products.json') || [];
-  const id = req.params.id;
-  const updatedProduct = req.body;
-
-  const index = products.findIndex(p => p.id === id);
-  if (index !== -1) {
-    products[index] = { ...products[index], ...updatedProduct };
-    if (writeJsonFile('products.json', products)) {
-      res.json(products[index]);
-    } else {
-      res.status(500).json({ error: 'Failed to write data' });
+app.post('/api/customers', async (req, res) => {
+  try {
+    const customers = await readData('customers.json') || [];
+    const newCustomer = req.body;
+    
+    if (!newCustomer.name || !newCustomer.email) {
+      return res.status(400).json({ error: 'Name and Email are required' });
     }
-  } else {
-    res.status(404).json({ error: 'Product not found' });
-  }
-});
 
-// API xóa sản phẩm
-app.delete('/api/products/:id', (req, res) => {
-  let products = readJsonFile('products.json') || [];
-  const id = req.params.id;
-  
-  const filteredProducts = products.filter(p => p.id !== id);
-  if (products.length !== filteredProducts.length) {
-    if (writeJsonFile('products.json', filteredProducts)) {
-      res.status(204).send();
-    } else {
-      res.status(500).json({ error: 'Failed to write data' });
-    }
-  } else {
-    res.status(404).json({ error: 'Product not found' });
-  }
-});
-
-// API lấy danh sách khách hàng
-app.get('/api/customers', (req, res) => {
-  const customers = readJsonFile('customers.json');
-  res.json(customers || []);
-});
-
-// API thêm khách hàng mới
-app.post('/api/customers', (req, res) => {
-  const customers = readJsonFile('customers.json') || [];
-  const newCustomer = req.body;
-  
-  if (!newCustomer.name || !newCustomer.email) {
-    return res.status(400).json({ error: 'Name and Email are required' });
-  }
-
-  const id = customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 1;
-  const customerToAdd = { ...newCustomer, id, totalOrders: 0, totalSpent: 0, status: 'Hoạt động' };
-  
-  customers.push(customerToAdd);
-  if (writeJsonFile('customers.json', customers)) {
+    const id = customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 1;
+    const customerToAdd = { ...newCustomer, id, totalOrders: 0, totalSpent: 0, status: 'Hoạt động' };
+    
+    customers.push(customerToAdd);
+    await writeData('customers.json', customers);
     res.status(201).json(customerToAdd);
-  } else {
-    res.status(500).json({ error: 'Failed to write data' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create customer' });
   }
 });
 
-// API cập nhật trạng thái/thông tin khách hàng
-app.put('/api/customers/:id', (req, res) => {
-  let customers = readJsonFile('customers.json') || [];
-  const id = parseInt(req.params.id);
-  const updatedData = req.body;
+app.put('/api/customers/:id', async (req, res) => {
+  try {
+    let customers = await readData('customers.json') || [];
+    const id = parseInt(req.params.id);
+    const updatedData = req.body;
 
-  const index = customers.findIndex(c => c.id === id);
-  if (index !== -1) {
-    customers[index] = { ...customers[index], ...updatedData };
-    if (writeJsonFile('customers.json', customers)) {
+    const index = customers.findIndex(c => c.id === id);
+    if (index !== -1) {
+      customers[index] = { ...customers[index], ...updatedData };
+      await writeData('customers.json', customers);
       res.json(customers[index]);
     } else {
-      res.status(500).json({ error: 'Failed to write data' });
+      res.status(404).json({ error: 'Customer not found' });
     }
-  } else {
-    res.status(404).json({ error: 'Customer not found' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update customer' });
   }
 });
 
-// Trang chu check server
+// --- ORDERS API (develop) ---
+app.get('/api/orders', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to read orders' });
+  }
+});
+
+app.post('/api/orders', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    const newOrder = req.body;
+    orders.push(newOrder);
+    await writeData('orders.json', orders);
+    res.status(201).json(newOrder);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create order' });
+  }
+});
+
+app.put('/api/orders/:id', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    const index = orders.findIndex(o => o.id === req.params.id);
+    if (index === -1) return res.status(404).json({ error: 'Order not found' });
+
+    orders[index] = { ...orders[index], ...req.body };
+    await writeData('orders.json', orders);
+    res.json(orders[index]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update order' });
+  }
+});
+
+app.delete('/api/orders/:id', async (req, res) => {
+  try {
+    let orders = await readData('orders.json');
+    orders = orders.filter(o => o.id !== req.params.id);
+    await writeData('orders.json', orders);
+    res.json({ message: 'Order deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete order' });
+  }
+});
+
+// --- DISCOUNTS API (develop) ---
+app.get('/api/discounts', async (req, res) => {
+  try {
+    const discounts = await readData('discounts.json');
+    res.json(discounts);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to read discounts' });
+  }
+});
+
+// --- PRODUCTS API (Merged & Compatible) ---
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    // Map to keep frontend compatible (stock -> quantity, status calculation)
+    const mappedProducts = products.map(p => ({
+      ...p,
+      quantity: p.stock !== undefined ? p.stock : (p.quantity || 0),
+      status: p.stock > 0 ? 'Còn hàng' : 'Hết hàng'
+    }));
+    res.json(mappedProducts);
+  } catch (e) {
+    res.json([]);
+  }
+});
+
+app.post('/api/products', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    const newProduct = { id: Date.now(), ...req.body };
+    // Map backend expected fields
+    if (newProduct.quantity !== undefined && newProduct.stock === undefined) {
+      newProduct.stock = newProduct.quantity;
+    }
+    products.push(newProduct);
+    await writeData('products.json', products);
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create product' });
+  }
+});
+
+app.put('/api/products/:id', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    const index = products.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).json({ error: 'Product not found' });
+
+    const updatedData = { ...req.body };
+    if (updatedData.quantity !== undefined) {
+      updatedData.stock = updatedData.quantity;
+    }
+
+    products[index] = { ...products[index], ...updatedData };
+    await writeData('products.json', products);
+    res.json(products[index]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update product' });
+  }
+});
+
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    let products = await readData('products.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    products = products.filter(p => p.id !== id);
+    await writeData('products.json', products);
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('Backend API for Webbanhang Group 11 is running!');
 });

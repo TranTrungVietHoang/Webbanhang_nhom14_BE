@@ -1,0 +1,154 @@
+{
+  "user": {
+    "level": "Gold Member",
+    "points": 2900,
+    "nextLevelPoints": 5000,
+    "progressToNextLevel": 58,
+    "pointsToNextLevel": 2100,
+    "nextLevelName": "Platinum",
+    "stats": [
+      { "id": 1, "label": "Điểm tháng này", "value": "+ 1000", "type": "points" },
+      { "id": 2, "label": "Phần thưởng đã đổi", "value": "5", "type": "rewards" },
+      { "id": 3, "label": "Nhiệm vụ hoàn thành", "value": "2/4", "type": "missions" },
+      { "id": 4, "label": "Ngày streak", "value": "7", "type": "streak" }
+    ]
+  },
+  "history": [
+    {
+      "id": 1,
+      "type": "purchase",
+      "label": "Mua hàng đơn #1245",
+      "date": "24/01/2026",
+      "points": 500,
+      "icon": "ShoppingBag"
+    },
+    {
+      "id": 2,
+      "type": "mission",
+      "label": "Hoàn thành nhiệm vụ hằng ngày",
+      "date": "24/01/2026",
+      "points": 50,
+      "icon": "Target"
+    },
+    {
+      "id": 3,
+      "type": "exchange",
+      "label": "Đổi voucher giảm 100k",
+      "date": "23/01/2026",
+      "points": -500,
+      "icon": "Gift"
+    },
+    {
+      "id": 4,
+      "type": "referral",
+      "label": "Giới thiệu bạn bè",
+      "date": "22/01/2026",
+      "points": 200,
+      "icon": "Users"
+    },
+    {
+      "id": 5,
+      "type": "checkin",
+      "label": "Checkin liên tiếp 7 ngày",
+      "date": "21/01/2026",
+      "points": 100,
+      "icon": "Calendar"
+    },
+    {
+      "id": 6,
+      "type": "review",
+      "label": "Viết đánh giá sản phẩm",
+      "date": "20/01/2026",
+      "points": 60,
+      "icon": "Star"
+    }
+  ],
+  "missions": [
+    {
+      "id": 1,
+      "type": "checkin",
+      "label": "Check-in hàng ngày",
+      "description": "Truy cập website mỗi ngày",
+      "progress": 100,
+      "reward": 10,
+      "icon": "Calendar"
+    },
+    {
+      "id": 2,
+      "type": "shopping",
+      "label": "Mua sắm trong tuần",
+      "description": "Hoàn thành 1 đơn hàng",
+      "progress": 0,
+      "reward": 100,
+      "icon": "ShoppingBag"
+    },
+    {
+      "id": 3,
+      "type": "review",
+      "label": "Viết 3 đánh giá",
+      "description": "Đánh giá sản phẩm đã mua",
+      "progress": 33,
+      "reward": 20,
+      "icon": "Star"
+    },
+    {
+      "id": 4,
+      "type": "referral",
+      "label": "Giới thiệu bạn bè",
+      "description": "Mời 2 người đăng ký",
+      "progress": 50,
+      "reward": 100,
+      "icon": "Users"
+    }
+  ],
+  "availableRewards": [
+    {
+      "id": 1,
+      "name": "Voucher giảm 50K",
+      "points": 250,
+      "stock": 50,
+      "icon": "Ticket",
+      "color": "text-pink-500 bg-pink-50"
+    },
+    {
+      "id": 2,
+      "name": "Voucher giảm 100K",
+      "points": 550,
+      "stock": 50,
+      "icon": "Star",
+      "color": "text-yellow-500 bg-yellow-50"
+    },
+    {
+      "id": 3,
+      "name": "Voucher giảm 200K",
+      "points": 1000,
+      "stock": 20,
+      "icon": "Gift",
+      "color": "text-red-500 bg-red-50"
+    },
+    {
+      "id": 4,
+      "name": "Freeship toàn quốc",
+      "points": 150,
+      "stock": 100,
+      "icon": "Truck",
+      "color": "text-emerald-500 bg-emerald-50"
+    },
+    {
+      "id": 5,
+      "name": "Mystery Box",
+      "points": 300,
+      "stock": 15,
+      "icon": "Box",
+      "color": "text-orange-500 bg-orange-50"
+    },
+    {
+      "id": 6,
+      "name": "Quà đặc biệt",
+      "points": 3000,
+      "stock": 1,
+      "icon": "Sparkles",
+      "color": "text-blue-500 bg-blue-50"
+    }
+  ]
+}

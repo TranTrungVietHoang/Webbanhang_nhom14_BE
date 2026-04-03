@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "discount": "Giảm 25%",
+    "description": "Giảm 25% cho đơn hàng từ 1 triệu (tối đa 500K)",
+    "minOrder": 1000000,
+    "expiryDate": "2026-10-20T00:00:00.000Z",
+    "code": "MEGA25012026",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "discount": "Giảm 10%",
+    "description": "Giảm 10% cho đơn hàng từ 1 triệu (tối đa 200K)",
+    "minOrder": 1000000,
+    "expiryDate": "2026-10-20T00:00:00.000Z",
+    "code": "VNVODICH2026",
+    "isActive": true
+  },
+  {
+    "id": "3",
+    "discount": "Giảm 10%",
+    "description": "Giảm 10% cho đơn hàng từ 1 triệu (tối đa 200K)",
+    "minOrder": 1000000,
+    "expiryDate": "2026-01-20T00:00:00.000Z",
+    "code": "VN2026",
+    "isActive": false
+  },
+  {
+    "id": "4",
+    "discount": "Giảm 30%",
+    "description": "Giảm 30% cho đơn hàng từ 1 triệu (tối đa 200K)",
+    "minOrder": 1000000,
+    "expiryDate": "2026-01-01T00:00:00.000Z",
+    "code": "HPNY2026",
+    "isActive": false
+  }
+]

@@ -6,7 +6,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-session-id'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const dataPath = (file) => path.join(__dirname, 'data', file);
@@ -53,7 +60,7 @@ app.put('/api/orders/:id', async (req, res) => {
     const orders = await readData('orders.json');
     const index = orders.findIndex(o => o.id === req.params.id);
     if (index === -1) return res.status(404).json({ error: 'Order not found' });
-    
+
     orders[index] = { ...orders[index], ...req.body };
     await writeData('orders.json', orders);
     res.json(orders[index]);
@@ -86,7 +93,7 @@ app.get('/api/discounts', async (req, res) => {
 app.post('/api/discounts', async (req, res) => {
   try {
     const discounts = await readData('discounts.json');
-    const newDiscount = { id: Date.now(), ...req.body }; // Simple auto-increment ID replacement
+    const newDiscount = { id: Date.now(), ...req.body };
     discounts.push(newDiscount);
     await writeData('discounts.json', discounts);
     res.status(201).json(newDiscount);
@@ -98,10 +105,10 @@ app.post('/api/discounts', async (req, res) => {
 app.put('/api/discounts/:id', async (req, res) => {
   try {
     const discounts = await readData('discounts.json');
-    const id = parseInt(req.params.id, 10) || req.params.id; // Handle both numeric or string IDs
+    const id = parseInt(req.params.id, 10) || req.params.id;
     const index = discounts.findIndex(d => d.id === id);
     if (index === -1) return res.status(404).json({ error: 'Discount not found' });
-    
+
     discounts[index] = { ...discounts[index], ...req.body };
     await writeData('discounts.json', discounts);
     res.json(discounts[index]);
@@ -122,11 +129,12 @@ app.delete('/api/discounts/:id', async (req, res) => {
   }
 });
 
+// --- PRODUCTS API ---
 app.get('/api/products', async (req, res) => {
   try {
     const products = await readData('products.json');
     res.json(products);
-  } catch(e) {
+  } catch (e) {
     res.json([]);
   }
 });
@@ -149,7 +157,7 @@ app.put('/api/products/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10) || req.params.id;
     const index = products.findIndex(p => p.id === id);
     if (index === -1) return res.status(404).json({ error: 'Product not found' });
-    
+
     products[index] = { ...products[index], ...req.body };
     await writeData('products.json', products);
     res.json(products[index]);

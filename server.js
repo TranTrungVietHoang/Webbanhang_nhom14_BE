@@ -6,9 +6,45 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, 'data', 'products.json');
+const REWARDS_PATH = path.join(__dirname, 'data', 'user_rewards.json');
 
 app.use(cors());
 app.use(express.json());
+
+// Helper function to read rewards
+async function readRewards() {
+  try {
+    const data = await fs.readFile(REWARDS_PATH, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading rewards:', error);
+    return {};
+  }
+}
+
+// API: Get user rewards data
+app.get('/api/user/rewards', async (req, res) => {
+  const data = await readRewards();
+  res.json(data.user);
+});
+
+// API: Get user points history
+app.get('/api/user/history', async (req, res) => {
+  const data = await readRewards();
+  res.json(data.history);
+});
+
+// API: Get user missions
+app.get('/api/user/missions', async (req, res) => {
+  const data = await readRewards();
+  res.json(data.missions);
+});
+
+// API: Get available rewards list
+app.get('/api/user/available-rewards', async (req, res) => {
+  const data = await readRewards();
+  res.json(data.availableRewards);
+});
 
 // Helper function to read products
 async function readProducts() {

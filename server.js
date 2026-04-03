@@ -2,35 +2,35 @@ const express = require('express');
 const cors = require('cors');
 const products = require('./data/products.json');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-
+const cartRoutes = require('./routes/cartRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const loyaltyRoutes = require('./routes/loyaltyRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
-// API lay danh sach san pham
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-session-id'],
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
 app.get('/api/products', (req, res) => {
   res.json(products);
 });
 
-// API quan ly ma giam gia
+app.use('/api/cart', cartRoutes);
 app.use('/api/coupons', couponRoutes);
-
-// API quan ly chat ho tro khach hang
 app.use('/api/chat', chatRoutes);
-
-// API quan ly thanh vien
 app.use('/api/loyalty', loyaltyRoutes);
-
-// API quan ly lich su don hang
 app.use('/api/orders', orderRoutes);
 
-// Trang chu check server
 app.get('/', (req, res) => {
   res.send('Backend API for Webbanhang Group 11 is running!');
 });

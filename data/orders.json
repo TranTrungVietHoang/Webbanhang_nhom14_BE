@@ -2,13 +2,13 @@
   {
     "id": "01",
     "createdAt": "2026-01-25T15:14:00Z",
-    "status": "Chờ xác nhận",
-    "paymentMethod": "Thanh toán khi nhận hàng",
+    "status": "Chá» xÃ¡c nháº­n",
+    "paymentMethod": "Thanh toÃ¡n khi nháº­n hÃ ng",
     "shippingAddress": "ww",
     "products": [
       {
         "productId": "p1",
-        "name": "iPhone 17 Pro Max 256GB - Chính hãng VN/A",
+        "name": "iPhone 17 Pro Max 256GB - ChÃ­nh hÃ£ng VN/A",
         "quantity": 1,
         "price": 37990000,
         "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500"
@@ -19,8 +19,8 @@
   {
     "id": "02",
     "createdAt": "2026-01-25T16:14:00Z",
-    "status": "Chờ xác nhận",
-    "paymentMethod": "Thanh toán khi nhận hàng",
+    "status": "Chá» xÃ¡c nháº­n",
+    "paymentMethod": "Thanh toÃ¡n khi nháº­n hÃ ng",
     "shippingAddress": "ww",
     "products": [
       {

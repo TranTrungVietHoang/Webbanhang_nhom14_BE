@@ -1,0 +1,25 @@
+{
+  "stats": {
+    "totalRevenue": {
+      "value": 150000000,
+      "growth": 12,
+      "period": "tháng trước"
+    },
+    "totalOrders": {
+      "value": 1200,
+      "growth": 9
+    },
+    "productsSold": {
+      "value": 2345,
+      "growth": 15
+    }
+  },
+  "revenueChart": [
+    { "name": "T1", "revenue": 10000000 },
+    { "name": "T2", "revenue": 25000000 },
+    { "name": "T3", "revenue": 45000000 },
+    { "name": "T4", "revenue": 70000000 },
+    { "name": "T5", "revenue": 55000000 },
+    { "name": "T6", "revenue": 80000000 }
+  ]
+}

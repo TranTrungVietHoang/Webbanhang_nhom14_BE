@@ -133,6 +133,51 @@ app.delete('/api/products/:id', (req, res) => {
   }
 });
 
+// API lấy danh sách khách hàng
+app.get('/api/customers', (req, res) => {
+  const customers = readJsonFile('customers.json');
+  res.json(customers || []);
+});
+
+// API thêm khách hàng mới
+app.post('/api/customers', (req, res) => {
+  const customers = readJsonFile('customers.json') || [];
+  const newCustomer = req.body;
+  
+  if (!newCustomer.name || !newCustomer.email) {
+    return res.status(400).json({ error: 'Name and Email are required' });
+  }
+
+  const id = customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 1;
+  const customerToAdd = { ...newCustomer, id, totalOrders: 0, totalSpent: 0, status: 'Hoạt động' };
+  
+  customers.push(customerToAdd);
+  if (writeJsonFile('customers.json', customers)) {
+    res.status(201).json(customerToAdd);
+  } else {
+    res.status(500).json({ error: 'Failed to write data' });
+  }
+});
+
+// API cập nhật trạng thái/thông tin khách hàng
+app.put('/api/customers/:id', (req, res) => {
+  let customers = readJsonFile('customers.json') || [];
+  const id = parseInt(req.params.id);
+  const updatedData = req.body;
+
+  const index = customers.findIndex(c => c.id === id);
+  if (index !== -1) {
+    customers[index] = { ...customers[index], ...updatedData };
+    if (writeJsonFile('customers.json', customers)) {
+      res.json(customers[index]);
+    } else {
+      res.status(500).json({ error: 'Failed to write data' });
+    }
+  } else {
+    res.status(404).json({ error: 'Customer not found' });
+  }
+});
+
 // Trang chu check server
 app.get('/', (req, res) => {
   res.send('Backend API for Webbanhang Group 11 is running!');

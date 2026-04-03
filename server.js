@@ -3,37 +3,6 @@ const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
 
-const cartRoutes = require('./routes/cartRoutes');
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Path for data files
-const DATA_PATH = path.join(__dirname, 'data', 'products.json');
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-// Routes from Develop Branch
-const couponRoutes = require('./routes/couponRoutes');
-const chatRoutes = require('./routes/chatRoutes');
-const loyaltyRoutes = require('./routes/loyaltyRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const rewardsRoutes = require('./routes/rewardsRoutes'); // My merged routes
-
-// --- Legacy Products Logic (Group 11) ---
-
-// Helper function to read products
-async function readProducts() {
-  try {
-    const data = await fs.readFile(DATA_PATH, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading products:', error);
-    return [];
-  }
-}
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -47,51 +16,170 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get('/api/products', (req, res) => {
-  res.json(products);
-});
+const dataPath = (file) => path.join(__dirname, 'data', file);
 
-app.use('/api/cart', cartRoutes);
-app.use('/api/coupons', couponRoutes);
-app.use('/api/chat', chatRoutes);
-app.use('/api/loyalty', loyaltyRoutes);
-// Helper function to write products
-async function writeProducts(products) {
+// Helper functions
+async function readData(file) {
   try {
-    await fs.writeFile(DATA_PATH, JSON.stringify(products, null, 2), 'utf8');
+    const data = await fs.readFile(dataPath(file), 'utf8');
+    return JSON.parse(data);
   } catch (error) {
-    console.error('Error writing products:', error);
+    if (error.code === 'ENOENT') return [];
+    throw error;
   }
 }
 
-// API: Get all products
-app.get('/api/products', async (req, res) => {
-  const products = await readProducts();
-  res.json(products);
-});
+async function writeData(file, data) {
+  await fs.writeFile(dataPath(file), JSON.stringify(data, null, 2), 'utf8');
+}
 
-// API: Get single product by ID
-app.get('/api/products/:id', async (req, res) => {
-  const products = await readProducts();
-  const product = products.find(p => p.id === parseInt(req.params.id));
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).json({ message: 'Product not found' });
+// --- ORDERS API ---
+app.get('/api/orders', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to read orders' });
   }
 });
 
-// --- New Service Routes Integration ---
+app.post('/api/orders', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    const newOrder = req.body;
+    orders.push(newOrder);
+    await writeData('orders.json', orders);
+    res.status(201).json(newOrder);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create order' });
+  }
+});
 
-app.use('/api/coupons', couponRoutes);
-app.use('/api/chat', chatRoutes);
-app.use('/api/loyalty', loyaltyRoutes); 
-app.use('/api/orders', orderRoutes);
-app.use('/api/user', rewardsRoutes); // Mapping my rewards to /api/user/*
+app.put('/api/orders/:id', async (req, res) => {
+  try {
+    const orders = await readData('orders.json');
+    const index = orders.findIndex(o => o.id === req.params.id);
+    if (index === -1) return res.status(404).json({ error: 'Order not found' });
 
-// Health check
+    orders[index] = { ...orders[index], ...req.body };
+    await writeData('orders.json', orders);
+    res.json(orders[index]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update order' });
+  }
+});
+
+app.delete('/api/orders/:id', async (req, res) => {
+  try {
+    let orders = await readData('orders.json');
+    orders = orders.filter(o => o.id !== req.params.id);
+    await writeData('orders.json', orders);
+    res.json({ message: 'Order deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete order' });
+  }
+});
+
+// --- DISCOUNTS API ---
+app.get('/api/discounts', async (req, res) => {
+  try {
+    const discounts = await readData('discounts.json');
+    res.json(discounts);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to read discounts' });
+  }
+});
+
+app.post('/api/discounts', async (req, res) => {
+  try {
+    const discounts = await readData('discounts.json');
+    const newDiscount = { id: Date.now(), ...req.body };
+    discounts.push(newDiscount);
+    await writeData('discounts.json', discounts);
+    res.status(201).json(newDiscount);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create discount' });
+  }
+});
+
+app.put('/api/discounts/:id', async (req, res) => {
+  try {
+    const discounts = await readData('discounts.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    const index = discounts.findIndex(d => d.id === id);
+    if (index === -1) return res.status(404).json({ error: 'Discount not found' });
+
+    discounts[index] = { ...discounts[index], ...req.body };
+    await writeData('discounts.json', discounts);
+    res.json(discounts[index]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update discount' });
+  }
+});
+
+app.delete('/api/discounts/:id', async (req, res) => {
+  try {
+    let discounts = await readData('discounts.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    discounts = discounts.filter(d => d.id !== id);
+    await writeData('discounts.json', discounts);
+    res.json({ message: 'Discount deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete discount' });
+  }
+});
+
+// --- PRODUCTS API ---
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    res.json(products);
+  } catch (e) {
+    res.json([]);
+  }
+});
+
+app.post('/api/products', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    const newProduct = { id: Date.now(), ...req.body };
+    products.push(newProduct);
+    await writeData('products.json', products);
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create product' });
+  }
+});
+
+app.put('/api/products/:id', async (req, res) => {
+  try {
+    const products = await readData('products.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    const index = products.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).json({ error: 'Product not found' });
+
+    products[index] = { ...products[index], ...req.body };
+    await writeData('products.json', products);
+    res.json(products[index]);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update product' });
+  }
+});
+
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    let products = await readData('products.json');
+    const id = parseInt(req.params.id, 10) || req.params.id;
+    products = products.filter(p => p.id !== id);
+    await writeData('products.json', products);
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete product' });
+  }
+});
+
 app.get('/', (req, res) => {
-  res.send('Backend API for Webbanhang Group 11 is running (Merged & Cleaned)!');
+  res.send('Backend API for Webbanhang Group 11 is running!');
 });
 
 app.listen(PORT, () => {

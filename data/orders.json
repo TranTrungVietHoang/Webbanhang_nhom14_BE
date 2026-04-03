@@ -1,0 +1,36 @@
+[
+  {
+    "id": "01",
+    "createdAt": "2026-01-25T15:14:00Z",
+    "status": "Chờ xác nhận",
+    "paymentMethod": "Thanh toán khi nhận hàng",
+    "shippingAddress": "ww",
+    "products": [
+      {
+        "productId": "p1",
+        "name": "iPhone 17 Pro Max 256GB - Chính hãng VN/A",
+        "quantity": 1,
+        "price": 37990000,
+        "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500"
+      }
+    ],
+    "totalAmount": 37990000
+  },
+  {
+    "id": "02",
+    "createdAt": "2026-01-25T16:14:00Z",
+    "status": "Chờ xác nhận",
+    "paymentMethod": "Thanh toán khi nhận hàng",
+    "shippingAddress": "ww",
+    "products": [
+      {
+        "productId": "p2",
+        "name": "Laptop Dell XPS 13 9300 - Intel Core Ultra 7",
+        "quantity": 1,
+        "price": 35990000,
+        "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500"
+      }
+    ],
+    "totalAmount": 35990000
+  }
+]

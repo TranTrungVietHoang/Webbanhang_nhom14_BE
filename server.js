@@ -10,6 +10,7 @@ app.use(express.json());
 
 const couponRoutes = require('./routes/couponRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const loyaltyRoutes = require('./routes/loyaltyRoutes');
 
 // API lay danh sach san pham
 app.get('/api/products', (req, res) => {
@@ -21,6 +22,9 @@ app.use('/api/coupons', couponRoutes);
 
 // API quan ly chat ho tro khach hang
 app.use('/api/chat', chatRoutes);
+
+// API quan ly thanh vien
+app.use('/api/loyalty', loyaltyRoutes);
 
 // Trang chu check server
 app.get('/', (req, res) => {

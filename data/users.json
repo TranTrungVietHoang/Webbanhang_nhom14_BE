@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1775285831795,
+    "fullName": "Test User",
+    "email": "test@example.com",
+    "phone": "123456789",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "createdAt": "2026-04-04T06:57:11.796Z"
+  },
+  {
+    "id": 1775287481401,
+    "fullName": "User",
+    "email": "User@gmail.com",
+    "phone": "0912345678",
+    "password": "3f0409ad2ac4570392adef46536c00e46c60d702d3822788319590de4c146a45",
+    "createdAt": "2026-04-04T07:24:41.401Z"
+  }
+]

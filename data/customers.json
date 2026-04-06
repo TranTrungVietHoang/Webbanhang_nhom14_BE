@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Nguyễn Văn A",
+    "phone": "012345678",
+    "email": "nvA@gmail.com",
+    "totalOrders": 5,
+    "totalSpent": 80000000,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 2,
+    "name": "Nguyễn Văn B",
+    "phone": "091234567",
+    "email": "nvB@gmail.com",
+    "totalOrders": 1,
+    "totalSpent": 20000000,
+    "status": "Hoạt động"
+  },
+  {
+    "id": 3,
+    "name": "Lê Văn C",
+    "phone": "082314567",
+    "email": "lvC@gmail.com",
+    "totalOrders": 3,
+    "totalSpent": 45000000,
+    "status": "Bị khóa"
+  }
+]
